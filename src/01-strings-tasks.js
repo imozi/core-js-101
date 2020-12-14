@@ -223,8 +223,33 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  return str.split('').reduce((a, e) => {
+    const key = e.charCodeAt();
+
+    switch (true) {
+      case key >= 65 && key <= 77: {
+        const b = a + String.fromCharCode(key + 13);
+        return b;
+      }
+      case key >= 78 && key <= 90: {
+        const c = a + String.fromCharCode(key - 13);
+        return c;
+      }
+      case key >= 97 && key <= 109: {
+        const d = a + String.fromCharCode(key + 13);
+        return d;
+      }
+      case key >= 110 && key <= 122: {
+        const f = a + String.fromCharCode(key - 13);
+        return f;
+      }
+      default: {
+        const g = a + String.fromCharCode(key);
+        return g;
+      }
+    }
+  }, '');
 }
 
 /**
@@ -273,8 +298,9 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return cards.indexOf(value);
 }
 
 
